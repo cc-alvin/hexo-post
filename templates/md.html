@@ -43,12 +43,12 @@
         });
         simplemde.gui.toolbar.remove()
         simplemde.toolbar.push({
-            name: 'metadata',
+            name: 'publish',
             action: function () {
                 post(simplemde)
             },
             className: 'fa fa-check',
-            title: 'Metadata'
+            title: 'Publish'
         })
         simplemde.createToolbar()
         simplemde.toggleSideBySide()
