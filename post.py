@@ -12,6 +12,7 @@ date_pattern = 'date: {} \n'
 
 def create_file(title, tags, categories, content):
     file_name = 'mds/'+'_'.join(pinyin_util.wordToPinyin(title)) + '.md'
+    file_name=''.join(file_name.split())
     with open(file_name, 'w') as f:
         # title
         post_title = title_pattern.format(title)
@@ -19,12 +20,12 @@ def create_file(title, tags, categories, content):
         # tags
         tags = tags.split(',')
         tags_items = map(addNewLineFlag, tags)
-        post_tags = tags_pattern.format(' -'.join(tags_items))
+        post_tags = tags_pattern.format(' - '.join(tags_items))
 
         # categories
         categories = categories.split(',')
         categories_items = map(addNewLineFlag, categories)
-        post_categories = categories_pattern.format(' -'.join(categories_items))
+        post_categories = categories_pattern.format(' - '.join(categories_items))
 
         # date
         date = date_pattern.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
