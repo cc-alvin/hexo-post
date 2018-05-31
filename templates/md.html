@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8"/>
+    <title>Simple example - Editor.md examples</title>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
+    <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+</head>
+<body>
+<textarea id="md"></textarea>
+<script>
+    function post(simplemde) {
+        title = $('#title', parent.document).val()
+        tags = $('#tags', parent.document).val()
+        categories = $('#categories', parent.document).val()
+        content = simplemde.value()
+        var data = {
+            'title': title,
+            'tags': tags,
+            'categories': categories,
+            'content': content
+        }
+        $.ajax({
+            url: '/publish',
+            type: "POST",
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            success: function (data) {
+                alert(data)
+            },
+            error: function (data) {
+                alert(data)
+            }
+        });
+
+    }
+
+    $(function () {
+        var simplemde = new SimpleMDE({
+            element: $("#md")[0],
+            placeholder: "Type here..."
+        });
+        simplemde.gui.toolbar.remove()
+        simplemde.toolbar.push({
+            name: 'metadata',
+            action: function () {
+                post(simplemde)
+            },
+            className: 'fa fa-check',
+            title: 'Metadata'
+        })
+        simplemde.createToolbar()
+        simplemde.toggleSideBySide()
+        $('#btn').click(function () {
+
+            alert(alert(simplemde.value()))
+        })
+
+    })
+</script>
+</body>
+</html>
+
+
